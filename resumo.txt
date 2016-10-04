@@ -1,0 +1,90 @@
+================
+  RESUMO PROVA
+================
+
+1.1 INTRO
+syntax
+semantic
+pragmatic
+árvores - gramáticas
+
+types 0 a 3
+
+- Type 0 unrestricted
+o lado esquerdo possui nao terminais
+
+- Type 1 sensivel ao contexto -
+O lado direito nao pode conter menos simbolos que
+do lado esquerdo
+
+- Type 2 livre de contexto bnf
+A:= string of vocabulary symbols
+
+- Type 3 regular grammar
+A expressao do lado direito pode conter apenas um simbolo
+terminal seguido, ou nao de um nao-terminal
+bnf - metaliguaguem
+
+1.2 WREN
+fortemente tipada ; facilita a descrição semantica
+	lexico
+	parte estrutura de frase
+
+ERROS
+1 - Livre de contexto - bnf lexico e estrutura de frases error na gramatica
+2 - Erros sensivel ao contexto ou semantico estatico
+	1. o nome identificador do programa não pode ser declarado em nenhum outro lugar;
+	2. todos os identificadores que aparecem neste bloco deve ser declarado neste bloco;
+	3. nenhum identificador pode ser declarado mais de uma vez em um bloco;
+	4. o identificador do lado esquerdo de um comando de atribuição deve ser declarado como uma variavel, e a expressão do lado direto deve ser do mesmo tipo;
+	5. um identificador ocorrendo como um elemento inteiro deve receber valores do tipo inteiro
+	6. um identificador ocorrendo como um elemento boolean deve receber valores do tipo boolean
+	7. um identificador ocorrendo em um comando read deve ser do tipo inteiro
+3 - Erros Semantico ou dinamico
+	1. tentativa de divisao por zero
+	2. uma variavel que não foi inicializada foi acessada
+	3. o comando read acessa uma variavel que está vazia
+	4. loop infinito
+
+Ambiguidade
+como wren pode evitar esse tipo de problema
+
+3.1 GA
+
+a) Qual a principal motivação para a existência
+da Gramática de atributos? Isto é, por que GLC
+não são suficientes para a descrição de uma
+linguagem de programação?
+
+A gramática de atributos é um meio de formalizar semântica e
+de checar aspectos de sintaxe em uma gramática livre de contexto.
+A GLA é provida de informações sensíveis ao contexto ao ser acrescida
+de atributos a seus elementos não terminais.
+
+Com a adição de atributos é possível utilizar uma
+gramática livre de contexto para descrever a expressão:
+
+a^n + b^n + c^n
+
+Tal expressão só poderia ser gerada por uma gramática sensível
+ao contexto, esta porém é geralmente imprática do ponto de vista
+de especificação de uma linguagem de programação.
+
+b) Qual a importância da utilização de GA em WREN?
+
+(retirado do livro 3.2)
+WREN é uma linguagem plana, isto é possui apenas um bloco por programa.
+Como consequência todas as declarações pertencem a uma única sequência de
+declarações no nível principal do programa. Com a aplicação de uma GA,
+é possível descrever blocos aninhados em WREN.
+
+5.1 LAMBDA CÁLCULO
+
+Ordem de agrupamento:
+E1 E2 E3 E4
+(((E1 E2)E3)E4)
+
+Casos de agrupamento:
+λx.e1 e2   ->   (λx.(e1 e2))
+λx1.λx2.e  ->   (λx1.(λx2.e))
+e1 e2 e3   ->   ((e1 e2) e3)
