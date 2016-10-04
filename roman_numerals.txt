@@ -1,0 +1,113 @@
+ROMAN NUMERALS EXERCISE:
+------------------------
+Define attributes for this grammar to carry
+out two tasks:
+
+a) Restrict the number of X’s in <lowTen>,
+the I’s in <lowUn>, and the C’s in
+<lowHuns> to no more than three.
+
+size -> s
+
+<roman>  ::= <hun> <tens> <uni>
+
+conditional:
+     ( s(sH) <= 3 )
+  && ( s(sT) <= 3 )
+  && ( s(sU) <= 3 )
+
+<hun>     ::= ε
+      sH = 0
+         | C
+      sH = 0
+         | CC
+      sH = 0
+         | CCC
+      sH = 0
+         | CD
+      sH = 0
+
+<lowHuns> ::= ε
+      sH = 0
+         | <lowHuns> C
+      sH = sH(<lowHuns>) + 1
+
+<tens>    ::= <lowTen>
+      sT = sT(<lowTen>)
+         | XL
+      sT = 0
+         | L <lowTens>
+      sT = 0 + sT(<lowTens>)
+         | XC
+      sT = 0
+
+<lowTen>  ::= ε
+      sT = 0
+         | <lowTen> X
+      sT = sT(<lowTen>) + 1
+
+<uni>     ::= <lowUn>
+      sU = sU(<lowUn>) + 0
+         | IV
+      sU = 0
+         | V <lowUn>
+      sU = 0 + sU(<lowUn>)
+         | IX
+      sU = 0
+
+<lowUn>   ::= ε
+      sU = 0
+         | <lowUn> I
+      sU = sU(<lowUni>) + 1
+
+
+b) Provide an attribute for <roman>
+that gives the decimal value
+of the Roman numeral being defined.
+
+<roman>   ::= <hun> <tens> <uni>
+        v = v(<hun>) + v(<tens>) + v(<uni>)
+
+<lowHuns> ::= ε
+        v = 0
+         | <lowHuns> C
+        v = v(<lowHun>) + 100
+
+<hun>     ::= ε
+        v = 0
+         | C
+        v = 100
+         | CC
+        v = 200
+         | CCC
+        v = 300
+         | CD
+        v = 400
+
+<tens>    ::= <lowTen>
+        v = v(<lowTen>)
+         | XL
+        v = 40
+         | L <lowTens>
+        v = 50 + v(<lowTen>)
+         | XC
+        v = 90
+
+<lowTen>  ::= ε
+        v = 0
+         | <lowTen> X
+        v = v(<lowTen>) + 10
+
+<uni>     ::= <lowUn>
+        v = v(<lowUn>)
+         | IV
+        v = 4
+         | V <lowUn>
+        v = 5 + v(<lowUn>)
+         | IX
+        v = 9
+
+<lowUn>   ::= ε
+        v = 0
+         | <lowUn> I
+        v = v(<lowUn>) + 1

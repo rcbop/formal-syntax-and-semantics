@@ -1,0 +1,75 @@
+PROVA FINAL 2015
+QUESTAO 1:
+-------------------------
+Descreva a BNF dos números octais:
+
+<octal>  ::= <number>
+<number> ::= <number> <digit> | <digit>
+<digit>  ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+
+QUESTAO 2:
+-------------------------
+Utilizando gramática de atributos sintetizada e
+a gramática da questão anterior, acrescente atributos
+de forma que a gramática deve especificar o significado
+de um número octal através do seu valor binário:
+
+<octal>  ::= <number>
+        v = v(<number>)
+
+<number> ::= <number> <digit>
+        v = v(<number2> * 1000) + v(<digit>)
+
+<number> ::= <digit>
+        v = v(<digit>)
+
+<digit>  ::= 0
+        v = 000
+        | 1
+        v = 001
+        | 2
+        v = 010
+        | 3
+        v = 011
+        | 4
+        v = 100
+        | 5
+        v = 101
+        | 6
+        v = 110
+        | 7
+        v = 111
+
+QUESTAO 3:
+-------------------------
+Derive o número octal 702 utilizando a gramática
+descrita previamente.
+
+           702
+         <octal>
+         <number>
+    <number>  <digit>
+<number>  <digit>  <digit>
+<digit>       <digit>  <digit>
+   |             |         |
+111*1000*1000  000*1000   010
+
+v = 111*1000*1000 + 000*1000 + 010
+v = 111*1000*1000 + 010
+v = 0010 1011 1110 = 702
+
+
+QUESTAO 4:
+-------------------------
+Abrevie a expressão lambda
+((((λG. λQ. (λL. (λx. ((G Q L) x )))) (λQ. (λX. (Q x)))) P) j)
+
+((((λG. λQ. (λL. (λx. ((G Q L) x )))) (λQ. (λX. Q x))) P) j)
+((((λG. λQ. (λL. (λx. ((G Q L) x )))) (λQ. λX. Q x)) P) j)
+((((λG. λQ. (λL. (λx. (G Q L) x ))) (λQ. λX. Q x)) P) j)
+((((λG. λQ. (λL. λx. (G Q L) x )) (λQ. λX. Q x)) P) j)
+((((λG. λQ. λL. λx. (G Q L) x ) (λQ. λX. Q x)) P) j)
+((((λGQLx.(G Q L) x) (λQX . Qx)) P) j)
+(((λGQLx.(G Q L) x) (λQX . Qx)) P j)
+((λGQLx. GQLx) (λQX. Qx)) P j
+(λGQLx. GQLx) (λQX. Qx) P j

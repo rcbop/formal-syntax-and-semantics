@@ -1,0 +1,72 @@
+RESOLUÇÃO AP1 2015
+QUESTAO 1:
+-------------------------
+a) Faça uma gramática para subtração soma e
+adição com ordem de precedência:
+
+----> (3 * (4 + (5 - 2))) :
+
+<exp>    ::= <exp> * <term1>    | <term1>
+<term1>  ::= <term1> + <term2>  | <term2>
+<term2>  ::= <term2> - <number> | <number>
+<number> ::= <number> <digit>   | <digit>
+<digit> := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+b) A ordem de avaliação da subtração e multiplicação
+é da direita pra esquerda; enquanto o da soma é da
+esquerda para a direita.
+Por exemplo a expressão: 3 - 4 - 1
+Deve ser executada como: (3 - (4 - 1))
+
+<exp>    ::= <exp> * <term1>    | <term1>
+<term1>  ::= <term1> + <term2>  | <term2>
+<term2>  ::= <number> - <term2> | <number>
+<number> ::= <number> <digit>   | <digit>
+<digit> := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+
+QUESTAO 2:
+-------------------------
+
+a) Qual a principal motivação para a existência
+da Gramática de atributos? Isto é, por que GLC
+não são suficientes para a descrição de uma
+linguagem de programação?
+
+A gramática de atributos é um meio de formalizar semântica e
+de checar aspectos de sintaxe em uma gramática livre de
+contexto. A GLA é provida de informações sensíveis ao contexto
+ao ser acrescida de atributos a seus elementos não terminais.
+
+Com a adição de atributos é possível utilizar uma
+gramática livre de contexto para descrever a expressão:
+
+a^n + b^n + c^n
+
+Tal expressão só poderia ser gerada por uma gramática sensível
+ao contexto, esta porém é geralmente imprática do ponto de vista
+de especificação de uma linguagem de programação.
+
+b) Qual a importância da utilização de GA em WREN?
+
+(retirado do livro 3.2)
+WREN é uma linguagem plana, isto é possui apenas um bloco por
+programa. Como consequência todas as declarações pertencem a
+uma única sequência de declarações no nível principal do programa.
+Com a aplicação de uma GA, é possível descrever blocos aninhados
+em WREN.
+
+QUESTAO 3:
+-------------------------
+
+Simplifique o máximo possível a seguinte
+expressão lambda:
+
+((λn .(λf .(λx .(f ((n f) x))))) (λg . (λy . (g y))))
+                        ----
+
+((λn .(λf .(λx .(f ((n f) x))))) (λg y . g y))
+((λn .(λf .(λx .(f (n f) x)))) (λg y . g y))
+((λn .(λf .(λx .f (n f) x))) (λg y . g y))
+((λn .(λf .λx .f (n f) x)) (λg y . g y))
+((λn .λf .λx .f (n f) x) (λg y . g y))
+(λn .f .x .f (n f x)) λg y . g y
